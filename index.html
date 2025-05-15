@@ -14,43 +14,44 @@
         Maison <br />Gabriel <br />Saint<span>-</span>Pierre
       </h1>
       <nav class="menu-header">
-        <a><img src="./public/assets/hamburger-menu.svg" /></a>
+        <div class="link-redirects">
+          <a class="profile" href="" target="_blank">Profile</a>
+          <a class="cart" href="" target="_blank">Cart</a>
+        </div>
+        <button class="hamburger" href="" target="_blank">
+          <img src="./public/assets/hamburger-menu.svg" />
+        </button>
       </nav>
     </header>
     <main>
-      <div class="collection-name">
-        <div id="current-perfume">
-          <h2>Les Chapitres de l'Amour</h2>
-          <h3>I. Love at First Sight</h3>
-        </div>
-        <div id="next-perfume">
-          <h2>Les Chapitres de l'Amour</h2>
-          <h3>Next: II. First Kiss</h3>
-        </div>
+      <div class="carousel">
+        <!-- make this dynamic--generate this image elements in js under carousel -->
       </div>
-      <div class="carousel-nav">
-        <button id="left-arrow" class="carousel-arrows">
-          <img src="./public/assets/left-arrow.svg" />
-        </button>
-        <button id="right-arrow" class="carousel-arrows">
-          <img src="./public/assets/right-arrow.svg" />
-        </button>
-      </div>
-      <div class="carousel-container">
-        <div class="carousel-wrapper">
-          <div class="carousel">
-            <img class="carousel-img" src="./public/imgs/placeholder1.png" />
-            <img class="carousel-img" src="./public/imgs/placeholder2.png" />
-            <div class="carousel-placeholder"></div>
-            <img class="carousel-img" src="./public/imgs/placeholder4.png" />
-            <img class="carousel-img" src="./public/imgs/placeholder5.png" />
-          </div>
+      <div class="perfume-info">
+        <div class="perfume-titles">
+          <h2 class="headings">Les Chapitres de l'Amour</h2>
+          <h3 class="sub-headings">I. Love at first sight</h3>
         </div>
-
-        <div class="carousel-popout">
-          <div class="popout-img">
-            <img class="carousel-img" src="./public/imgs/placeholder3.png" />
-          </div>
+        <div class="perfume-description">
+          <p>
+            A stolen moment suspended in time—the first glance, where everything
+            begins.<br /><br />
+            Two souls collide in silence, unaware that fate has just turned its
+            page. The air shifts. The heart stirs. It is sweetness wrapped in
+            uncertainty, a beginning already laced with its ending.<br /><br />
+            This scent captures the fragile beauty of newness: a luminous veil
+            of citrus and delicate florals that bloom with the innocence of
+            curiosity. Beneath the surface, a soft tension unfolds—ambered musks
+            and tender woods echo the quiet promise of a story still
+            unwritten.<br /><br />
+            Unisex and ephemeral, it lingers like the memory of a gaze—haunting,
+            beautiful, and irreversibly life-changing.<br /><br />
+            It is not love, not yet—but the breathless ache of its possibility.
+          </p>
+        </div>
+        <div class="perfume-nav">
+          <button class="nav-prev">Prelude</button>
+          <button class="nav-next">Overture</button>
         </div>
       </div>
     </main>
