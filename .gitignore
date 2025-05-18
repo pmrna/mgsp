@@ -1,1 +1,10 @@
 .vscode
+node_modules
+build
+npm-debug.log
+.env
+.DS_Store
+
+*.db
+*.db-shm
+*.db-wal
