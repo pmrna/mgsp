@@ -31,8 +31,13 @@
       <section class="auth-form">
         <h2 class="headings">Log in Account</h2>
         <form action="/api/auth/login" method="POST" class="auth-form__form">
-          <input type="text" name="email" placeholder="Enter email" />
-          <input type="password" name="password" placeholder="Enter password" />
+          <input type="text" name="email" placeholder="Enter email" required />
+          <input
+            type="password"
+            name="password"
+            placeholder="Enter password"
+            required
+          />
           <button type="submit" class="auth-form__login">Login</button>
           <p>Don't have an account?</p>
           <a class="auth-form__redirect" href="/page/auth/register/index.html"

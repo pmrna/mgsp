@@ -31,10 +31,25 @@
       <section class="auth-form">
         <h2 class="headings">Create an Account</h2>
         <form action="/api/auth/register" method="POST" class="auth-form__form">
-          <input type="text" name="first_name" placeholder="Enter first name" />
-          <input type="text" name="last_name" placeholder="Enter last name" />
-          <input type="email" name="email" placeholder="Enter email" />
-          <input type="password" name="password" placeholder="Enter password" />
+          <input
+            type="text"
+            name="first_name"
+            placeholder="Enter first name"
+            required
+          />
+          <input
+            type="text"
+            name="last_name"
+            placeholder="Enter last name"
+            required
+          />
+          <input type="email" name="email" placeholder="Enter email" required />
+          <input
+            type="password"
+            name="password"
+            placeholder="Enter password"
+            required
+          />
           <button type="submit" class="auth-form__login">Create</button>
           <p>Already have an account?</p>
           <a class="auth-form__redirect" href="/page/auth/login/index.html"
