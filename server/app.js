@@ -67,10 +67,6 @@ app.post("/api/auth/login", (req, res) => {
   }
 });
 
-app.get("/profile", validateJWT, (req, res) => {
-  res.sendFile(path.join(__dirname, "../protected/profile/index.html"));
-});
-
 // serve /profile files if jwt is valid.
 app.use(
   "/profile",
