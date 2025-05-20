@@ -6,6 +6,7 @@ import db from "./db/db.js";
 import jwt from "jsonwebtoken";
 import cookieParser from "cookie-parser";
 import validateJWT from "./utils/validate-jwt/index.js";
+import hashUtils from "./utils/hash-password/index.js";
 
 const app = express();
 const PORT = 3000;
@@ -13,6 +14,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const jwtSecret = process.env.JWT_SECRET;
 const jwtExpireTime = process.env.JWT_EXPIRATION_TIME;
+const { hashPassword, verifyPassword } = hashUtils;
 
 // serve the static files from ./public
 app.use(express.static(path.join(__dirname, "../public")));
@@ -22,12 +24,14 @@ app.use(cookieParser());
 
 app.post("/api/auth/register", (req, res) => {
   try {
-    const user = req.body;
+    const { first_name, last_name, email, password } = req.body;
+
+    const hashedPassword = hashPassword(password);
     db.prepare(
       `
         INSERT INTO users (first_name, last_name, email, password) VALUES (?, ?, ?, ?)
       `
-    ).run(user.first_name, user.last_name, user.email, user.password);
+    ).run(first_name, last_name, email, hashedPassword);
 
     res.redirect("/page/auth/login/index.html");
   } catch (error) {
@@ -36,17 +40,15 @@ app.post("/api/auth/register", (req, res) => {
   }
 });
 
-app.post("/api/auth/login", (req, res) => {
+app.post("/api/auth/login", async (req, res) => {
   try {
     const { email, password } = req.body;
-    const user = db
-      .prepare(
-        `
-        SELECT * FROM users WHERE email = ? AND password = ?`
-      )
-      .get(email, password);
 
-    if (!user) {
+    const user = db.prepare(`SELECT * FROM users WHERE email = ?`).get(email);
+
+    const verified = await verifyPassword(password, user.password);
+
+    if (!user || !verified) {
       return res.status(401).send("Invalid email or password");
     }
 
@@ -80,8 +82,6 @@ app.listen(PORT, (error) => {
       `Server is successfully running, and app is listening on port: http://localhost:${PORT}`
     );
   } else {
-    console.log(`Error occurred, server can't start`, error);
+    console.error(`Error occurred, server can't start:`, error);
   }
 });
-
-// TODO: password salt
