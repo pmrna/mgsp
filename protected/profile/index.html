@@ -31,26 +31,70 @@
         <h2 class="headings">Fiche Maison</h2>
         <div class="profile-info__info">
           <address>
-            <span>Czean Jacob Arroyo</span><br />
-            San Jose del Monte, Bulacan 3023<br />
-            Philippines
+            <span class="profile-info__name"></span><br />
+            <span class="profile-info__addr"></span><br />
+            <span class="profile-info__country"></span>
           </address>
         </div>
         <button class="profile-info__button">Log out</button>
       </section>
       <section class="profile-settings">
         <h2 class="headings">Modify my Account</h2>
-        <form action="" class="profile-settings__form">
-          <!-- placeholder should be user's info -->
-          <input type="text" placeholder="Enter first name" />
-          <input type="text" placeholder="Enter last name" />
-          <input type="text" placeholder="Enter email" />
-          <input type="password" placeholder="Enter password" />
-          <button type="submit" class="auth-form__login">
-            Update my Account
-          </button>
-          <!-- TODO: newsletter -->
+        <form action="/api/profile" class="profile-settings__form">
+          <!-- value should be user's info -->
+          <div>
+            <input
+              class="profile-settings__input--fname"
+              type="text"
+              placeholder="Enter first name"
+            />
+            <input
+              class="profile-settings__input--lname"
+              type="text"
+              placeholder="Enter last name"
+            />
+          </div>
+          <input
+            class="profile-settings__input--email"
+            type="text"
+            placeholder="Enter email"
+          />
+          <input
+            class="profile-settings__input--password"
+            type="password"
+            placeholder="Enter password"
+          />
+          <label>Address</label>
+          <input
+            class="profile-settings__input--country"
+            type="password"
+            placeholder="Enter country"
+          />
+          <input
+            class="profile-settings__input--region"
+            type="text"
+            placeholder="Enter state, province, region"
+          />
+          <input
+            class="profile-settings__input--city"
+            type="text"
+            placeholder="Enter city"
+          />
+          <input
+            class="profile-settings__input--zip"
+            type="text"
+            placeholder="Enter postal code"
+          />
+          <input
+            class="profile-settings__input--addr"
+            type="text"
+            placeholder="Enter street name, building, house no."
+          />
         </form>
+        <button type="submit" class="profile-settings__button">
+          Update my Account
+        </button>
+        <!-- TODO: newsletter -->
       </section>
       <section class="profile-history">
         <h2 class="headings">Mémoire de la Maison</h2>
@@ -99,4 +143,4 @@
   </body>
 </html>
 
-<!-- TODO: replace placeholder values to user info form db.  -->
+<!-- TODO: edit user info/s, replace placeholder values to user info form db.  -->

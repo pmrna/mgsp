@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="/reset.css" />
     <link rel="stylesheet" href="/main.css" />
     <link rel="stylesheet" href="../style.css" />
-    <script type="text/javascript" src="../auth.js" defer></script>
   </head>
   <body>
     <header class="header">
@@ -30,19 +29,26 @@
       <section>Info</section>
       <section class="auth-form">
         <h2 class="headings">Create an Account</h2>
-        <form action="/api/auth/register" method="POST" class="auth-form__form">
-          <input
-            type="text"
-            name="first_name"
-            placeholder="Enter first name"
-            required
-          />
-          <input
-            type="text"
-            name="last_name"
-            placeholder="Enter last name"
-            required
-          />
+        <form
+          id="register-form"
+          action="/api/auth/register"
+          method="POST"
+          class="auth-form__form"
+        >
+          <div class="auth-form__form-name">
+            <input
+              type="text"
+              name="first_name"
+              placeholder="Enter first name"
+              required
+            />
+            <input
+              type="text"
+              name="last_name"
+              placeholder="Enter last name"
+              required
+            />
+          </div>
           <input type="email" name="email" placeholder="Enter email" required />
           <input
             type="password"
@@ -50,12 +56,40 @@
             placeholder="Enter password"
             required
           />
-          <button type="submit" class="auth-form__login">Create</button>
-          <p>Already have an account?</p>
-          <a class="auth-form__redirect" href="/page/auth/login/index.html"
-            >Log in Account</a
-          >
+          <label>Address</label>
+          <input
+            type="text"
+            name="country"
+            placeholder="Enter country"
+            required
+          />
+          <input
+            type="text"
+            name="region"
+            placeholder="Enter state, province, or region"
+            required
+          />
+          <input type="text" name="city" placeholder="Enter city" required />
+          <input
+            type="text"
+            name="zip"
+            placeholder="Enter postal code, ZIP code, postcode, or PIN"
+            required
+          />
+          <input
+            type="text"
+            name="address"
+            placeholder="Enter street name, building, house no"
+            required
+          />
         </form>
+        <button form="register-form" type="submit" class="auth-form__login">
+          Create
+        </button>
+        <p>Already have an account?</p>
+        <a class="auth-form__redirect" href="/page/auth/login/index.html"
+          >Log in Account</a
+        >
       </section>
     </main>
     <footer>

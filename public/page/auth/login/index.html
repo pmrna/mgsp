@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="/reset.css" />
     <link rel="stylesheet" href="/main.css" />
     <link rel="stylesheet" href="../style.css" />
-    <script type="text/javascript" src="../auth.js" defer></script>
   </head>
   <body>
     <header class="header">
@@ -30,7 +29,12 @@
       <section>Info</section>
       <section class="auth-form">
         <h2 class="headings">Log in Account</h2>
-        <form action="/api/auth/login" method="POST" class="auth-form__form">
+        <form
+          id="login-form"
+          action="/api/auth/login"
+          method="POST"
+          class="auth-form__form"
+        >
           <input type="text" name="email" placeholder="Enter email" required />
           <input
             type="password"
@@ -38,12 +42,14 @@
             placeholder="Enter password"
             required
           />
-          <button type="submit" class="auth-form__login">Login</button>
-          <p>Don't have an account?</p>
-          <a class="auth-form__redirect" href="/page/auth/register/index.html"
-            >Create an Account</a
-          >
         </form>
+        <button form="login-form" type="submit" class="auth-form__login">
+          Login
+        </button>
+        <p>Don't have an account?</p>
+        <a class="auth-form__redirect" href="/page/auth/register/index.html"
+          >Create an Account</a
+        >
       </section>
     </main>
     <footer>

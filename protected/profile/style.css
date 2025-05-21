@@ -25,10 +25,20 @@
   gap: 10px;
 }
 
-.profile-info__info span {
-  font-style: normal;
+.profile-info__name,
+.profile-info__country {
   font-weight: bold;
-  font-size: 25px;
+  font-style: normal;
+  font-size: 24px;
+}
+
+.profile-info__addr {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.profile-info__country {
+  font-style: italic;
 }
 
 .profile-info__button {
@@ -46,20 +56,29 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 20px;
+  max-height: 600px;
 }
 
-.profile-settings h2 {
-  margin-bottom: 100px;
+.profile-settings__form {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  overflow-y: scroll;
+}
+
+.profile-settings__form::-webkit-scrollbar {
+  display: none;
 }
 
 .profile-settings__form {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  overflow-y: scroll;
 }
 
-.profile-settings__form > input {
-  min-width: 500px;
+.profile-settings__form input {
+  min-width: 300px;
   padding: 10px;
   font-size: 18px;
   font-family: var(--secondary-font);
@@ -67,7 +86,14 @@
   font-weight: bold;
 }
 
-.profile-settings__form > button {
+label {
+  font-family: var(--tertiary-font);
+  font-size: 20px;
+  color: var(--neutral-color);
+  font-weight: bold;
+}
+
+.profile-settings__button {
   color: var(--neutral-color);
   font-family: var(--tertiary-font);
   font-weight: bold;
@@ -75,5 +101,8 @@
   background: var(--button-color);
   width: 100%;
   padding: 10px;
-  box-shadow: 3px 3px 2px 2px rgba(0, 0, 0, 0.25);
+}
+
+.profile-settings button {
+  box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.25);
 }

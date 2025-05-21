@@ -1,6 +1,6 @@
 import Database from "better-sqlite3";
 
-const db = new Database("server/db/app.db", { verbose: console.log });
+const db = new Database("server/db/app.db");
 db.pragma("journal_mode = WAL");
 
 const query = `
@@ -9,7 +9,12 @@ const query = `
         first_name TEXT NOT NULL,
         last_name TEXT NOT NULL,
         email TEXT NOT NULL UNIQUE,
-        password TEXT NOT NULL
+        password TEXT NOT NULL,
+        country TEXT NOT NULL,
+        region TEXT NOT NULL,
+        city TEXT NOT NULL,
+        zip TEXT NOT NULL,
+        address TEXT NOT NULL
     );
 
     CREATE TABLE IF NOT EXISTS perfumes (

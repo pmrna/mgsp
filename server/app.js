@@ -24,14 +24,35 @@ app.use(cookieParser());
 
 app.post("/api/auth/register", (req, res) => {
   try {
-    const { first_name, last_name, email, password } = req.body;
+    const {
+      first_name,
+      last_name,
+      email,
+      password,
+      country,
+      region,
+      city,
+      zip,
+      address,
+    } = req.body;
 
     const hashedPassword = hashPassword(password);
+
     db.prepare(
       `
-        INSERT INTO users (first_name, last_name, email, password) VALUES (?, ?, ?, ?)
+        INSERT INTO users (first_name, last_name, email, password, country, region, city, zip, address) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
       `
-    ).run(first_name, last_name, email, hashedPassword);
+    ).run(
+      first_name,
+      last_name,
+      email,
+      hashedPassword,
+      country,
+      region,
+      city,
+      zip,
+      address
+    );
 
     res.redirect("/page/auth/login/index.html");
   } catch (error) {
@@ -65,6 +86,30 @@ app.post("/api/auth/login", async (req, res) => {
     res.redirect("/index.html");
   } catch (error) {
     console.error("Failed to log in: ", error);
+    res.status(500).send("Internal server error");
+  }
+});
+
+app.get("/api/profile", (req, res) => {
+  try {
+    const token = req.cookies.token;
+    const payload = jwt.verify(token, jwtSecret);
+
+    const userId = payload.id;
+
+    const user = db
+      .prepare(
+        `
+      SELECT first_name, last_name, country, region, city, zip, address 
+      FROM users 
+      WHERE id = ? 
+      `
+      )
+      .get(userId);
+
+    res.status(200).json(user);
+  } catch (error) {
+    console.error(error);
     res.status(500).send("Internal server error");
   }
 });

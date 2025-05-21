@@ -17,3 +17,5 @@ for (const p of perfumes) {
     `
   ).run(p.name, p.description, p.price);
 }
+
+// TODO: populate through cli from excel file
