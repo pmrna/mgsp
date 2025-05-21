@@ -14,8 +14,10 @@ const cityInput = document.querySelector(".profile-settings__input--city");
 const zipInput = document.querySelector(".profile-settings__input--zip");
 const addressInput = document.querySelector(".profile-settings__input--addr");
 
+const updateForm = document.querySelector(".profile-settings__form");
+const url = "/api/profile";
+
 async function getUserInfo() {
-  const url = "/api/profile";
   try {
     const response = await fetch(url);
 
@@ -51,4 +53,37 @@ async function displayUserInfo() {
 
 displayUserInfo();
 
-// make user info display in form input values
+updateForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const formData = new FormData(updateForm);
+  const data = Object.fromEntries(formData.entries());
+
+  if (!data.password) {
+    delete data.password;
+  }
+
+  try {
+    const response = await fetch(url, {
+      method: "PUT",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to update profile");
+    }
+
+    alert("Profile updated");
+  } catch (error) {
+    console.error("Error updating profile:", error);
+  }
+});
+
+/*
+
+TODO: disable update button when there is no change of value in input, 
+TODO: logging out 
+
+*/

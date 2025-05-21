@@ -1,6 +1,6 @@
 import Database from "better-sqlite3";
 
-const db = new Database("server/db/app.db");
+const db = new Database("server/db/app.db", { verbose: console.log });
 db.pragma("journal_mode = WAL");
 
 const query = `
@@ -37,4 +37,4 @@ db.exec(query);
 
 export default db;
 
-// add location & address in user
+// add previously purchased (history) table, location & address in user

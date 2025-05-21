@@ -7,6 +7,7 @@ import jwt from "jsonwebtoken";
 import cookieParser from "cookie-parser";
 import validateJWT from "./utils/validate-jwt/index.js";
 import hashUtils from "./utils/hash-password/index.js";
+import { hash } from "crypto";
 
 const app = express();
 const PORT = 3000;
@@ -21,6 +22,7 @@ app.use(express.static(path.join(__dirname, "../public")));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(express.json());
 
 app.post("/api/auth/register", (req, res) => {
   try {
@@ -90,12 +92,9 @@ app.post("/api/auth/login", async (req, res) => {
   }
 });
 
-app.get("/api/profile", (req, res) => {
+app.get("/api/profile", validateJWT, (req, res) => {
   try {
-    const token = req.cookies.token;
-    const payload = jwt.verify(token, jwtSecret);
-
-    const userId = payload.id;
+    const userId = req.user.id;
 
     const user = db
       .prepare(
@@ -121,10 +120,47 @@ app.use(
   express.static(path.join(__dirname, "../protected/profile"))
 );
 
-app.put("/api/profile", (req, res) => {
+app.put("/api/profile", validateJWT, (req, res) => {
   try {
-    const user = req.body;
-    console.log(user);
+    const userId = req.user.id;
+    const {
+      first_name,
+      last_name,
+      email,
+      password,
+      country,
+      region,
+      city,
+      zip,
+      address,
+    } = req.body;
+
+    const currentPassword = db
+      .prepare(`SELECT password FROM users WHERE id = ?`)
+      .get(userId);
+
+    const hashedPassword = password
+      ? hashPassword(password)
+      : currentPassword.password;
+
+    db.prepare(
+      `UPDATE users
+      SET first_name = ?, last_name = ?, email = ?, password = ?, country = ?, region = ?, city = ?, zip = ?, address = ?
+      WHERE id = ?`
+    ).run(
+      first_name,
+      last_name,
+      email,
+      hashedPassword,
+      country,
+      region,
+      city,
+      zip,
+      address,
+      userId
+    );
+
+    res.status(200).send("Successfully updated user information");
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal server error");
