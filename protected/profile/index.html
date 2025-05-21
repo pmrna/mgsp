@@ -40,58 +40,75 @@
       </section>
       <section class="profile-settings">
         <h2 class="headings">Modify my Account</h2>
-        <form action="/api/profile" class="profile-settings__form">
+        <form
+          id="update-form"
+          action="/api/profile"
+          class="profile-settings__form"
+        >
           <!-- value should be user's info -->
           <div>
             <input
               class="profile-settings__input--fname"
               type="text"
+              name="first_name"
               placeholder="Enter first name"
             />
             <input
               class="profile-settings__input--lname"
               type="text"
+              name="last_name"
               placeholder="Enter last name"
             />
           </div>
           <input
             class="profile-settings__input--email"
             type="text"
+            name="email"
             placeholder="Enter email"
           />
           <input
             class="profile-settings__input--password"
             type="password"
-            placeholder="Enter password"
+            name="password"
+            placeholder="Enter new password"
           />
           <label>Address</label>
           <input
             class="profile-settings__input--country"
-            type="password"
+            type="text"
+            name="country"
             placeholder="Enter country"
           />
           <input
             class="profile-settings__input--region"
             type="text"
+            name="region"
             placeholder="Enter state, province, region"
           />
           <input
             class="profile-settings__input--city"
             type="text"
+            name="city"
             placeholder="Enter city"
           />
           <input
             class="profile-settings__input--zip"
             type="text"
+            name="zip"
             placeholder="Enter postal code"
           />
           <input
             class="profile-settings__input--addr"
             type="text"
+            name="address"
             placeholder="Enter street name, building, house no."
           />
         </form>
-        <button type="submit" class="profile-settings__button">
+        <button
+          form="update-form"
+          type="submit"
+          class="profile-settings__button"
+        >
           Update my Account
         </button>
         <!-- TODO: newsletter -->

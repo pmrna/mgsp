@@ -100,7 +100,7 @@ app.get("/api/profile", (req, res) => {
     const user = db
       .prepare(
         `
-      SELECT first_name, last_name, country, region, city, zip, address 
+      SELECT first_name, last_name, email, country, region, city, zip, address 
       FROM users 
       WHERE id = ? 
       `
@@ -120,6 +120,16 @@ app.use(
   validateJWT,
   express.static(path.join(__dirname, "../protected/profile"))
 );
+
+app.put("/api/profile", (req, res) => {
+  try {
+    const user = req.body;
+    console.log(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error");
+  }
+});
 
 app.listen(PORT, (error) => {
   if (!error) {
