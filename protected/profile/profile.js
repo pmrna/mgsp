@@ -16,6 +16,13 @@ const addressInput = document.querySelector(".profile-settings__input--addr");
 
 const updateForm = document.querySelector(".profile-settings__form");
 const url = "/api/profile";
+const submitButton = document.querySelector(".profile-settings__button");
+
+let initialFormData = {};
+
+submitButton.setAttribute("disabled", true);
+
+const logoutButton = document.querySelector(".profile-info__button");
 
 async function getUserInfo() {
   try {
@@ -52,15 +59,34 @@ async function displayUserInfo() {
 }
 
 displayUserInfo();
+initialFormData = Object.fromEntries(new FormData(updateForm).entries());
+
+async function clearSession() {
+  try {
+    const response = await fetch("/api/auth/logout", {
+      method: "POST",
+      credentials: "include",
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to log out");
+    }
+
+    alert("Successfully logged out");
+    window.location.replace("/index.html");
+  } catch (error) {
+    alert("Error logging out user");
+    console.error(error);
+  }
+}
+
+logoutButton.addEventListener("click", clearSession);
 
 updateForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const formData = new FormData(updateForm);
-  const data = Object.fromEntries(formData.entries());
-
-  if (!data.password) {
-    delete data.password;
+  if (!initialFormData.password) {
+    delete initialFormData.password;
   }
 
   try {
@@ -68,7 +94,7 @@ updateForm.addEventListener("submit", async (e) => {
       method: "PUT",
       credentials: "include",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
+      body: JSON.stringify(initialFormData),
     });
 
     if (!response.ok) {
@@ -81,9 +107,24 @@ updateForm.addEventListener("submit", async (e) => {
   }
 });
 
+updateForm.addEventListener("input", (event) => {
+  event.preventDefault();
+
+  const currentFormData = Object.fromEntries(new FormData(updateForm));
+
+  const check = Object.keys(initialFormData).some(
+    (key) => initialFormData[key] !== currentFormData[key]
+  );
+
+  if (check) {
+    submitButton.removeAttribute("disabled");
+  } else {
+    submitButton.setAttribute("disabled", true);
+  }
+});
+
 /*
 
-TODO: disable update button when there is no change of value in input, 
-TODO: logging out 
+TODO: better error handling (404s, etc.)
 
 */

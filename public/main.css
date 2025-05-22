@@ -14,6 +14,8 @@
   --button-color: #b4b3b3;
   --footer-color: #2e2e2e;
   --disclaimer-color: #ddd;
+  --disabled-button-color: #8f8f8f;
+  --disabled-font-color: #414141;
 }
 
 body {

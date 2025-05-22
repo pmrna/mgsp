@@ -101,8 +101,13 @@ label {
   background: var(--button-color);
   width: 100%;
   padding: 10px;
+  box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.25);
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-.profile-settings button {
-  box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.25);
+.profile-settings__button:disabled {
+  box-shadow: none;
+  background-color: var(--disabled-button-color);
+  color: var(--disabled-font-color);
+  cursor: not-allowed;
 }

@@ -167,6 +167,20 @@ app.put("/api/profile", validateJWT, (req, res) => {
   }
 });
 
+app.post("/api/auth/logout", validateJWT, (req, res) => {
+  try {
+    res.clearCookie("token", {
+      httpOnly: true,
+      sameSite: "Strict",
+      secure: process.env.NODE_ENV === "production",
+    });
+
+    res.status(200).send("Successfully logged out");
+  } catch (error) {
+    res.status(500).send("Internal server error");
+  }
+});
+
 app.listen(PORT, (error) => {
   if (!error) {
     console.log(
