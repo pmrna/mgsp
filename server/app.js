@@ -7,7 +7,6 @@ import jwt from "jsonwebtoken";
 import cookieParser from "cookie-parser";
 import validateJWT from "./utils/validate-jwt/index.js";
 import hashUtils from "./utils/hash-password/index.js";
-import { hash } from "crypto";
 
 const app = express();
 const PORT = 3000;
@@ -23,6 +22,21 @@ app.use(express.static(path.join(__dirname, "../public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.json());
+
+app.get("/api/perfumes", (req, res) => {
+  try {
+    // include image after testing
+    const { name, description } = req.body;
+
+    const perfume = db
+      .prepare(`SELECT * FROM perfumes WHERE name = ?, description = ?`)
+      .get(name, description);
+
+    res.status(200).json(perfume);
+  } catch (error) {
+    res.status(500).send("Internal Server Error");
+  }
+});
 
 app.post("/api/auth/register", (req, res) => {
   try {

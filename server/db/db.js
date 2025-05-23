@@ -1,6 +1,14 @@
 import Database from "better-sqlite3";
+import { fileURLToPath } from "url";
+import { dirname, join } from "path";
 
-const db = new Database("server/db/app.db", { verbose: console.log });
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const dbPath = join(__dirname, "app.db");
+console.log(__filename, __dirname, dbPath);
+
+const db = new Database(dbPath, { verbose: console.log });
 db.pragma("journal_mode = WAL");
 
 const query = `
@@ -19,9 +27,10 @@ const query = `
 
     CREATE TABLE IF NOT EXISTS perfumes (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT NOT NULL,
+        name TEXT NOT NULL UNIQUE,
         description TEXT,
-        price REAL NOT NULL
+        price REAL NOT NULL,
+        image TEXT NOT NULL
     );
 
     CREATE TABLE IF NOT EXISTS cart (
@@ -31,6 +40,13 @@ const query = `
         FOREIGN KEY(user_id) REFERENCES users(id),
         FOREIGN KEY(perfume_id) REFERENCES perfumes(id)
     );
+
+    CREATE TABLE IF NOT EXISTS perfume_images (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        perfume_id INTEGER NOT NULL,
+        path TEXT NOT NULL,
+        FOREIGN KEY (perfume_id) REFERENCES perfumes(id)        
+    )
 `;
 
 db.exec(query);
