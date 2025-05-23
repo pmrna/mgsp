@@ -147,14 +147,14 @@ body {
   align-items: center;
 }
 
-.info__heading-collection,
-.info__heading-name {
+.info__collection,
+.info__perfume {
   font-family: var(--accent-font);
   color: var(--neutral-color);
   font-size: 50px;
 }
 
-.info__heading-name {
+.info__perfume {
   font-size: 30px;
   text-decoration: underline;
 }
@@ -199,7 +199,7 @@ footer {
   gap: 50px;
 }
 
-.footer-links {
+.footer__links {
   margin-top: 50px;
   width: 100%;
   display: flex;
@@ -208,33 +208,33 @@ footer {
   justify-content: space-around;
 }
 
-.footer-links h2 {
+.footer__links h2 {
   font-size: 1.5rem;
   font-weight: 100px;
 }
 
-.footer-links li {
+.footer__links li {
   list-style: none;
 }
 
-.footer-links a {
+.footer__links a {
   font-family: var(--tertiary-font);
   font-size: 1rem;
   font-weight: bold;
   text-decoration: none;
 }
 
-.footer-links a:hover {
+.footer__links a:hover {
   text-decoration: underline;
 }
 
 .footer__divider {
   color: white;
   height: 1px;
-  width: 1600px;
+  width: 95%;
 }
 
-.footer-disclaimer {
+.footer__disclaimer {
   display: flex;
   flex-direction: row;
   max-width: 50%;
@@ -242,11 +242,11 @@ footer {
   gap: 50px;
 }
 
-.footer-disclaimer h2 {
+.footer__disclaimer h2 {
   text-decoration: underline;
 }
 
-.footer-disclaimer p {
+.footer__disclaimer p {
   font-size: 1rem;
   color: var(--disclaimer-color);
   line-height: 100%;
