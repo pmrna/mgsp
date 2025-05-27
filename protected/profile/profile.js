@@ -29,14 +29,14 @@ async function getUserInfo() {
     const response = await fetch(url);
 
     if (!response.ok) {
-      throw new Error(`Response status: ${response.status}`);
+      throw new Error(`${response.status} - Failed to get user data`);
     }
 
     const data = await response.json();
 
     return data;
   } catch (error) {
-    console.error("Failed to get user information:", error);
+    console.error(error);
   }
 }
 
@@ -75,7 +75,7 @@ async function clearSession() {
     alert("Successfully logged out");
     window.location.replace("/index.html");
   } catch (error) {
-    alert("Error logging out user");
+    alert("Failed to log out. Try again.");
     console.error(error);
   }
 }

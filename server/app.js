@@ -10,8 +10,10 @@ import hashUtils from "./utils/hash-password/index.js";
 
 const app = express();
 const PORT = 3000;
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
 const jwtSecret = process.env.JWT_SECRET;
 const jwtExpireTime = process.env.JWT_EXPIRATION_TIME;
 const { hashPassword, verifyPassword } = hashUtils;
@@ -23,17 +25,28 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.json());
 
-app.get("/api/perfumes", (req, res) => {
+app.get("/api/perfumes/:id", (req, res) => {
   try {
-    // include image after testing
-    const { name, description } = req.body;
-
+    const perfumeId = req.params.id;
     const perfume = db
-      .prepare(`SELECT * FROM perfumes WHERE name = ?, description = ?`)
-      .get(name, description);
+      .prepare(
+        `SELECT name, description, image
+        FROM perfumes
+        WHERE id = ?`
+      )
+      .get(perfumeId);
+
+    const galleryQuery = db
+      .prepare(`SELECT path FROM perfume_images WHERE perfume_id = ?`)
+      .all(perfumeId);
+
+    const gallery = galleryQuery.map((path) => path.path);
+
+    perfume.gallery = gallery;
 
     res.status(200).json(perfume);
   } catch (error) {
+    console.error(error);
     res.status(500).send("Internal Server Error");
   }
 });
@@ -181,7 +194,7 @@ app.put("/api/profile", validateJWT, (req, res) => {
   }
 });
 
-app.post("/api/auth/logout", validateJWT, (req, res) => {
+app.post("/api/auth/logout", validateJWT, (_, res) => {
   try {
     res.clearCookie("token", {
       httpOnly: true,
@@ -204,3 +217,6 @@ app.listen(PORT, (error) => {
     console.error(`Error occurred, server can't start:`, error);
   }
 });
+
+// update put to patch
+// better error handling (404s, etc.)

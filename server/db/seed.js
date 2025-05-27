@@ -1,4 +1,3 @@
-import { exec } from "ffmpeg/lib/utils.js";
 import db from "./db.js";
 
 // Les Chapitres de l'Amour

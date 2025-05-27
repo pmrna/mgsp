@@ -6,7 +6,6 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const dbPath = join(__dirname, "app.db");
-console.log(__filename, __dirname, dbPath);
 
 const db = new Database(dbPath, { verbose: console.log });
 db.pragma("journal_mode = WAL");
